@@ -1,0 +1,47 @@
+
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span [routerLink]="'/sections'">{{(sectionData | async)?.name}}</span>
+      <span class="example-spacer"></span>
+      <button mat-icon-button [routerLink]="'add'">
+        <mat-icon>add</mat-icon>
+      </button>
+        <button mat-icon-button [routerLink]="'edit'">
+        <mat-icon>edit</mat-icon>
+        </button>
+      <mat-menu #appMenu="matMenu">
+        <button mat-menu-item [routerLink]="'sections'">الأقسام</button>
+        <button mat-menu-item>Help</button>
+      </mat-menu>
+    </mat-toolbar-row>
+  </mat-toolbar>
+      <mat-tab-group>
+        <mat-tab label="المنتجات">
+ <div class="alert alert-warning text-right" *ngIf="(items | async)?.length === 0 ">
+   لا توجد منتجات في هذا القسم
+   <br>
+    </div>
+     <mat-list>
+       <mat-list-item *ngFor="let i of items | async " mat-button >
+         <img matListAvatar src="{{i.image}} " alt="..." [routerLink]="'/sections/'+thisSection + '/'+i.url">
+         <h3 matLine [routerLink]="'/sections/'+thisSection + '/'+i.url"> {{i.name }} </h3>
+         <p matLine [routerLink]="'/sections/'+thisSection + '/'+i.url">
+           <span>{{i.description}} </span>
+         </p>
+        <mat-menu #appMenu="matMenu">
+          <button mat-menu-item (click)='del(i.eventId)'>حذف</button>
+        </mat-menu>
+
+
+        <button mat-icon-button [matMenuTriggerFor]="appMenu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+       </mat-list-item>
+     </mat-list>
+        </mat-tab>
+        <mat-tab label="التصنيفات الفرعية">
+            
+ليس بعد
+        </mat-tab>
+
+      </mat-tab-group>

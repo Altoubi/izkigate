@@ -1,0 +1,69 @@
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <span [routerLink]="''"> الطلب</span>
+      <span class="example-spacer"></span>
+      <mat-icon class="example-icon" aria-hidden="false" aria-label="Example heart icon">favorite</mat-icon>
+
+      <button mat-icon-button [matMenuTriggerFor]="appMenu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #appMenu="matMenu">
+         <button mat-menu-item (click)='changeStatus(code,"work")'>جاري العمل</button>
+         <button mat-menu-item (click)='changeStatus(code,"done")'>تم إنجازة</button>
+         <button mat-menu-item (click)='changeStatus(code,"deleted")'>المهملات</button>
+      </mat-menu>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+
+  <mat-expansion-panel *ngFor="let i of orders | async" expanded>
+    <mat-expansion-panel-header>
+تفاصيل الزبون</mat-expansion-panel-header>
+
+ <table class="table">
+   <tr>
+       <td>رقم الطلب</td>
+       <td>{{i.code}}</td>
+    </tr>
+    <tr>
+        <td>الإسم</td>
+     <td>{{i.name}}</td>
+   </tr>
+   <tr>
+     <td>الهاتف</td>
+     <td>{{i.phone}}</td>
+   </tr>
+   <tr>
+     <td>الإيميل</td>
+     <td>{{i.email}}</td>
+   </tr>
+   <tr>
+     <td>العنوان</td>
+     <td>{{i.address1}}</td>
+   </tr>
+   <tr>
+     <td>العنوان 2</td>
+     <td>{{i.address2}}</td>
+   </tr>
+ </table>
+    <mat-action-row>
+      <a mat-button href="tel:{{i.phone}}">إتصال</a>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel *ngFor="let i of orders | async" >
+    <mat-expansion-panel-header>
+      تفاصيل الزبون</mat-expansion-panel-header>
+
+
+<mat-selection-list #itemsList checkboxPosition='after'>
+    <mat-list-option *ngFor="let i of items |async" >
+      {{i.item_name}}× الكمية: {{i.item_qty}} حبة× {{i.item_price | currency:' ر.ع ':'symbol':'1.3'}} 
+    </mat-list-option>
+</mat-selection-list>
+
+
+    <mat-action-row>
+      <button mat-button (click)='changeStatus(code,"work")'>جاري العمل</button>
+    </mat-action-row>
+    </mat-expansion-panel>

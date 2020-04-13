@@ -1,0 +1,59 @@
+
+  <mat-toolbar color="primary">
+
+    <mat-toolbar-row>
+      <span [routerLink]="'/sections/'+ thisSection"> {{i.name}}</span>
+      <span class="example-spacer"></span>
+      <button mat-icon-button (click)="saveData(i)">
+        <mat-icon>save</mat-icon>
+      </button>
+
+    </mat-toolbar-row>
+  </mat-toolbar>
+ 
+
+  <mat-card>
+    <mat-card-content style="text-align: center; min-height: 160px;">
+
+      <img *ngIf="(downloadURL | async)" src="{{downloadURL | async}}" (click)="uploader.click()" alt="" srcset=""
+        width="150">
+      <img mat-button *ngIf="!(downloadURL | async)" src="https://static.thenounproject.com/png/348334-200.png"
+        (click)="uploader.click()" alt="" srcset=""
+        width="150">
+      <input hidden type="file" #uploader (change)="uploadFile($event)" />
+    </mat-card-content>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>الاسم</mat-label>
+      <input matInput placeholder="Ex. Pizza" [(ngModel)]="i.name">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>الرابط</mat-label>
+      <input matInput placeholder="link..." [(ngModel)]="i.url">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>السعر</mat-label>
+      <input matInput placeholder="0.000" [(ngModel)]="i.price">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>أقل كمية للطلب</mat-label>
+      <input matInput placeholder="1,2,3,4,...." [(ngModel)]="i.min_order">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+      <mat-label>حالة الطلب</mat-label>
+      <mat-select [(ngModel)]="i.status">
+        <mat-option value="متوفر">متوفر</mat-option>
+        <mat-option value="بالطلب المسبق">بالطلب المسبق</mat-option>
+        <mat-option value="يوم  إلى 3 أيام">يوم إلى 3 أيام</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>الوصف</mat-label>
+      <textarea [(ngModel)]="i.short_desc" matInput placeholder="Ex. It makes me feel..."></textarea>
+    </mat-form-field>
+
+  </mat-card>
+
+

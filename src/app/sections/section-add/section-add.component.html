@@ -1,0 +1,40 @@
+<mat-toolbar color="primary">
+
+  <mat-toolbar-row>
+    <span routerLink="../">إضافة تصنيف</span>
+    <span class="example-spacer"></span>
+    <button mat-icon-button (click)="saveData(sections)">
+      <mat-icon>save</mat-icon>
+    </button>
+    
+    <!-- <mat-icon class="example-icon" aria-hidden="false" aria-label="Example delete icon">delete</mat-icon> -->
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-card>
+<mat-card-content style="text-align: center; min-height: 160px;">
+
+  <img *ngIf="(downloadURL | async)" src="{{downloadURL | async}}" (click)="uploader.click()" alt="" srcset=""
+    width="150">
+  <img mat-button *ngIf="!(downloadURL | async)" src="https://static.thenounproject.com/png/348334-200.png"
+    (click)="uploader.click()" alt=""
+    srcset="" width="150">
+    
+     <input hidden type="file" #uploader (change)="uploadFile($event)" />
+</mat-card-content>
+    <mat-form-field class="example-full-width">
+        <mat-label>الاسم</mat-label>
+        <input matInput placeholder="Ex. Pizza" [(ngModel)]="sections.name">
+    </mat-form-field>
+    
+    <mat-form-field class="example-full-width">
+        <mat-label>الرابط</mat-label>
+        <input matInput placeholder="pizza" [(ngModel)]="sections.url">
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+        <mat-label>الوصف</mat-label>
+        <textarea [(ngModel)]="sections.description" matInput placeholder="Ex. It makes me feel..."></textarea>
+    </mat-form-field>
+    
+</mat-card>
